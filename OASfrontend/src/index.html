@@ -5,7 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="/OASfrontend/dist/output.css" rel="stylesheet">
-    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="main.css" rel="stylesheet">
     <title>Document</title>
 </head>
 <body>
@@ -36,7 +36,7 @@
         <!-- secondary nav -->
         <div class="hidden md:flex items-center space-x-1">
           <a href="" class="py-5 px-3">Login</a>
-          <a href="" class="py-2 px-3 bg-yellow-400 hover:bg-yellow-300 text-yellow-900 hover:text-yellow-800 rounded transition duration-300">Signup</a>
+          <a href="singup.html" target="_blank" class="py-2 px-3 bg-yellow-400 hover:bg-yellow-300 text-yellow-900 hover:text-yellow-800 rounded transition duration-300">Signup</a>
         </div>
   
         <!-- mobile button goes here -->
@@ -56,13 +56,25 @@
       <a href="#" class="block py-2 px-4 text-sm hover:bg-gray-200">Account</a>
       <a href="#" class="block py-2 px-4 text-sm hover:bg-gray-200">Add Items</a>
       <a href="#" class="block py-2 px-4 text-sm hover:bg-gray-200">My Items</a>
-      <a href="#" class="block py-2 px-4 text-sm hover:bg-gray-200"></a>
+      <a href="#" class="block py-2 px-4 text-sm hover:bg-gray-200">Sign out</a>
     </div>
   </nav>
   
   <!-- content goes here -->
-  <div class="py-32 text-center">
-   
+  <div class="py-16">
+    <div class="h-44 flex shadow-lg md:hidden">
+        <div class="w-4/6 bg-gray-500 font-serif font-bold">
+           <h1>Seller Name:</h1>
+           <h1>Product Name:</h1>
+           <h1>Price:</h1>
+           <h1>Initial Bid:</h1>
+           <h1>current Highest Bid:</h1><br>
+           <h1>Counter:</h1>
+        </div>
+        <div class="bg-blue-300 h-44 w-2/6">
+           <img class="h-full w-full" src="iot.jpg">
+        </div>
+    </div>
   </div>
     </div>
     <script src="index.js"></script>
