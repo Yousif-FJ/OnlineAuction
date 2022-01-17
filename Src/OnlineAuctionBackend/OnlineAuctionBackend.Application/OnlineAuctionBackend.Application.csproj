@@ -10,4 +10,8 @@
     <Folder Include="Commands\" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\OnlineAuctionBackend.Infrastructure\OnlineAuctionBackend.Infrastructure.csproj" />
+  </ItemGroup>
+
 </Project>

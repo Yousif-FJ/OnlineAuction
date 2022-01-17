@@ -11,6 +11,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OnlineAuctionBackend.Infras
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OnlineAuctionBackend.Application", "OnlineAuctionBackend.Application\OnlineAuctionBackend.Application.csproj", "{ADC8F415-5B6A-4D38-9C5A-09853D9C1674}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OnlineAuctionBackend.Identity", "OnlineAuctionBackend.Identity\OnlineAuctionBackend.Identity.csproj", "{C745E517-F7E9-460D-933D-4916AA92FC19}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -33,6 +35,10 @@ Global
 		{ADC8F415-5B6A-4D38-9C5A-09853D9C1674}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{ADC8F415-5B6A-4D38-9C5A-09853D9C1674}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{ADC8F415-5B6A-4D38-9C5A-09853D9C1674}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C745E517-F7E9-460D-933D-4916AA92FC19}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C745E517-F7E9-460D-933D-4916AA92FC19}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C745E517-F7E9-460D-933D-4916AA92FC19}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C745E517-F7E9-460D-933D-4916AA92FC19}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

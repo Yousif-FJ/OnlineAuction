@@ -10,7 +10,7 @@
             Items = new HashSet<Item>();
         }
 
-        public string IdentityId { get; }
+        public string IdentityId { get; private set; }
 
         public ICollection<Item> Items { get; private set; }
         public ICollection<Auction> Auctions { get; private set; }

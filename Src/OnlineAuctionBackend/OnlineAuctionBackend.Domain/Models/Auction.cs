@@ -13,13 +13,14 @@
             Bids = new HashSet<Bid>();
         }
 
-        public double CurrentPrice { get; }
-        public DateTime CreationDate { get; }
-        public DateTime ExpireDate { get; }
-        public int ItemId { get; }
+        public double CurrentPrice { get; private set; }
+        public DateTime CreationDate { get; private set; }
+        public DateTime ExpireDate { get; private set; }
+        public int ItemId { get; private set; }
         public ICollection<Bid> Bids { get; private set; }
         public Item Item
         {
+            private set => _item = value;
             get => _item ??
                 throw new InvalidOperationException("Uninitialized property: " + nameof(Item));
         }

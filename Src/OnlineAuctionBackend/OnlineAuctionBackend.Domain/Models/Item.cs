@@ -19,6 +19,7 @@
         public int OwnerId { get; set; }
         public User Owner
         {
+            private set => _owner = value;
             get => _owner ??
                 throw new InvalidOperationException("Uninitialized property: " + nameof(Owner));
         }
