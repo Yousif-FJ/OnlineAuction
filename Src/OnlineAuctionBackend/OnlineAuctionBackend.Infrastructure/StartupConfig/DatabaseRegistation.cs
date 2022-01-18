@@ -8,17 +8,16 @@ namespace OnlineAuctionBackend.Infrastructure.StartupConfig
 {
     public static class DatabaseRegistation
     {
-        public static void CustomConfigAuctionDb(this IServiceCollection services,
-            IConfiguration Configuration)
+        public static void CustomConfigAuctionDb(this IServiceCollection services, string databaseUrl)
         {
+            if (string.IsNullOrEmpty(databaseUrl))
+            {
+                throw new ArgumentException($"'{nameof(databaseUrl)}' cannot be null or empty.",
+                    nameof(databaseUrl));
+            }
+
             services.AddDbContext<AuctionDbContext>(optionsBuilder =>
             {
-                string databaseUrl = Configuration["DATABASE_URL"];
-                if (databaseUrl == null)
-                {
-                    throw new InvalidOperationException("Couldn't get connection string");
-                }
-
                 var databaseUri = new Uri(databaseUrl);
                 var userInfo = databaseUri.UserInfo.Split(':');
 

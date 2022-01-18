@@ -1,3 +1,4 @@
+using OnlineAuctionBackend.Application.StartupConfig;
 using OnlineAuctionBackend.Identity.StartupConfig;
 using OnlineAuctionBackend.Infrastructure.StartupConfig;
 
@@ -8,8 +9,11 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 
-builder.Services.CustomConfigAuctionDb(builder.Configuration);
-builder.Services.CustomConfigIdentityDb(builder.Configuration);
+builder.Services.CustomConfigAuctionDb(builder.Configuration["DATABASE_URL"]);
+builder.Services.CustomConfigIdentityDb(builder.Configuration["DATABASE_URL"]);
+
+builder.Services.AddAppIdentityServices();
+builder.Services.AddAppServices();
 
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
