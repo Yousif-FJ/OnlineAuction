@@ -1,0 +1,1 @@
+﻿global using OnlineAuctionBackend.Identity.Data;

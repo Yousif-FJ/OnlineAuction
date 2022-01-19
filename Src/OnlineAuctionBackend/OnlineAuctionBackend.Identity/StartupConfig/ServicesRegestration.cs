@@ -1,8 +1,7 @@
 ﻿using MediatR;
-using MediatR.Extensions.FluentValidation.AspNetCore;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.DependencyInjection;
-using OnlineAuctionBackend.Identity.Data;
+using OnlineAuctionBackend.Identity.Services;
 
 namespace OnlineAuctionBackend.Identity.StartupConfig
 {
@@ -10,15 +9,15 @@ namespace OnlineAuctionBackend.Identity.StartupConfig
     {
         public static void AddAppIdentityServices(this IServiceCollection services)
         {
-            services.ConfigureIdentity();
             services.AddMediatR(typeof(ServicesRegestration));
-            services.AddFluentValidation(new[] { typeof(ServicesRegestration).Assembly });
+            services.AddTransient<IAccessTokenGenerator, AccessTokenGenerator>();
+            services.ConfigureIdentity();
         }
 
 
         private static void ConfigureIdentity(this IServiceCollection services)
         {
-            services.AddIdentityCore<IdentityUser>().AddEntityFrameworkStores<IdentityDbContext>();
+            services.AddIdentityCore<AppUser>().AddEntityFrameworkStores<IdentityDbContext>();
 
             services.Configure<IdentityOptions>(options =>
             {
@@ -33,6 +32,7 @@ namespace OnlineAuctionBackend.Identity.StartupConfig
                 // User settings.
                 options.User.AllowedUserNameCharacters =
                 "QWERTYUIOPASDFGHJKLZXCVBNMabcdefghijklmnopqrstuvwxyz0123456789_";
+                options.User.RequireUniqueEmail = true;
             });
         }
     }

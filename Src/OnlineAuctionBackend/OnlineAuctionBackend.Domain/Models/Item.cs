@@ -11,7 +11,7 @@
             OwnerId = ownerId;
             PhotoUrl = photoUrl;
         }
-        
+
         public string Name { get; set; }
         public double StartingPrice { get; set; }
         public string PhotoUrl { get; set; }
