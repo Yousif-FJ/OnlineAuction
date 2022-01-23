@@ -1,6 +1,7 @@
 ﻿using MediatR;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.DependencyInjection;
+using OnlineAuctionBackend.Identity.Actions;
 using OnlineAuctionBackend.Identity.Services;
 
 namespace OnlineAuctionBackend.Identity.StartupConfig
@@ -9,7 +10,7 @@ namespace OnlineAuctionBackend.Identity.StartupConfig
     {
         public static void AddAppIdentityServices(this IServiceCollection services)
         {
-            services.AddMediatR(typeof(ServicesRegestration));
+            services.AddMediatR(typeof(CreateUserHandler));
             services.AddTransient<IAccessTokenGenerator, AccessTokenGenerator>();
             services.ConfigureIdentity();
         }

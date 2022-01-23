@@ -9,6 +9,9 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="AutoMapper" Version="11.0.0" />
+    <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="11.0.0" />
+    <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="6.0.1" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="6.0.1">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
@@ -20,10 +23,6 @@
   <ItemGroup>
     <ProjectReference Include="..\OnlineAuctionBackend.Application\OnlineAuctionBackend.Application.csproj" />
     <ProjectReference Include="..\OnlineAuctionBackend.Identity\OnlineAuctionBackend.Identity.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="V1\" />
   </ItemGroup>
 
 </Project>

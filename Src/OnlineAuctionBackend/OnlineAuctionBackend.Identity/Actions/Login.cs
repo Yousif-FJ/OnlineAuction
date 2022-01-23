@@ -4,13 +4,13 @@ using OnlineAuctionBackend.Identity.Services;
 
 namespace OnlineAuctionBackend.Identity.Actions
 {
-    public record LoginRequest(string Email, string Password) : IRequest<LoginResult>;
+    public record LoginCommand(string Email, string Password) : IRequest<LoginResult>;
 
 
     public record LoginResult(string? Error = null, string? AccessToken = null);
 
 
-    internal class LoginHandler : IRequestHandler<LoginRequest, LoginResult>
+    public class LoginHandler : IRequestHandler<LoginCommand, LoginResult>
     {
         private readonly UserManager<AppUser> _userManager;
         private readonly IAccessTokenGenerator _accessTokenGenerator;
@@ -20,7 +20,7 @@ namespace OnlineAuctionBackend.Identity.Actions
             this._userManager = userManager;
             this._accessTokenGenerator = accessTokenGenerator;
         }
-        public async Task<LoginResult> Handle(LoginRequest request, CancellationToken cancellationToken)
+        public async Task<LoginResult> Handle(LoginCommand request, CancellationToken cancellationToken)
         {
             var user = await _userManager.FindByEmailAsync(request.Email);
             if (user is null)
