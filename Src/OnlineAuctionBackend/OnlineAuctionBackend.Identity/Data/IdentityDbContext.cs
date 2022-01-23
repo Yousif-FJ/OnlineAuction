@@ -3,9 +3,9 @@ using Microsoft.EntityFrameworkCore;
 
 namespace OnlineAuctionBackend.Identity.Data
 {
-    internal class IdentityDbContext : IdentityUserContext<AppUser>
+    public class IdentityDbContext : IdentityUserContext<AppUser>
     {
-        internal IdentityDbContext(DbContextOptions<IdentityDbContext> options) : base(options)
+        public IdentityDbContext(DbContextOptions<IdentityDbContext> options) : base(options)
         {
         }
     }
