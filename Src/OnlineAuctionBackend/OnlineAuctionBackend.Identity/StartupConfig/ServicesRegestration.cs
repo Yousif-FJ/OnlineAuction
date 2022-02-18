@@ -15,7 +15,6 @@ namespace OnlineAuctionBackend.Identity.StartupConfig
             services.ConfigureIdentity();
         }
 
-
         private static void ConfigureIdentity(this IServiceCollection services)
         {
             services.AddIdentityCore<AppUser>().AddEntityFrameworkStores<IdentityDbContext>();

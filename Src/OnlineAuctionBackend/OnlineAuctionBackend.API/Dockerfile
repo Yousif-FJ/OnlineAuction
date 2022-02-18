@@ -19,4 +19,4 @@ RUN dotnet publish "OnlineAuctionBackend.API.csproj" -c Release -o /app/publish
 FROM base AS final
 WORKDIR /app
 COPY --from=publish /app/publish .
-ENTRYPOINT ["dotnet", "OnlineAuctionBackend.API.dll"]
+CMD ["dotnet", "OnlineAuctionBackend.API.dll"]

@@ -23,7 +23,7 @@ namespace OnlineAuctionBackend.Identity.Services
         {
             JwtSecurityTokenHandler jwtSecurityTokenHandler = new();
 
-            var secret = _configuration["JWT_SECRET"];
+            var secret = _configuration["AUCTION_JWT_SECRET"];
             if (secret is null)
             {
                 throw new KeyNotFoundException("Faild to obtain JWT Secret");

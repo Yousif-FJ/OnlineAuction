@@ -4,7 +4,7 @@ using Npgsql;
 
 namespace OnlineAuctionBackend.Identity.StartupConfig
 {
-    public static class DatabaseRegistation
+    public static class DatabaseRegistration
     {
         public static void CustomConfigIdentityDb(this IServiceCollection services, string databaseUrl)
         {
