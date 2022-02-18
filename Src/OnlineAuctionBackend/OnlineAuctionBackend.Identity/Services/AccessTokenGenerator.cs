@@ -39,7 +39,8 @@ namespace OnlineAuctionBackend.Identity.Services
                     new Claim(type: JwtRegisteredClaimNames.NameId, id),
                     new Claim(type: JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString())
                 }),
-                SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256Signature),
+                SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key),
+                SecurityAlgorithms.HmacSha256Signature),
                 IssuedAt = DateTime.UtcNow,
                 NotBefore = DateTime.UtcNow,
                 Expires = DateTime.UtcNow.AddDays(int.Parse(_configuration["Jwt:ExpiresInDay"])),

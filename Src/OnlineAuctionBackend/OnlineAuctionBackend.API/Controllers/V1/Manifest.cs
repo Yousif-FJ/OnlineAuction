@@ -1,6 +1,6 @@
 ﻿namespace OnlineAuctionBackend.API.Controllers.V1
 {
-    public static class ManifestV1
+    public static class Manifest
     {
         public const string Login = "v1/authentication/login";
         public const string CreateUser = "v1/authentication/user";

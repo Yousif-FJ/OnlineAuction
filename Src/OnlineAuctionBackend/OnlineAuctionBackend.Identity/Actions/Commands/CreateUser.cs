@@ -2,17 +2,18 @@
 using Microsoft.AspNetCore.Identity;
 using OnlineAuctionBackend.Identity.Services;
 
-namespace OnlineAuctionBackend.Identity.Actions
+namespace OnlineAuctionBackend.Identity.Actions.Commands
 {
-    public record CreateUserRequest(string Username, string Email, string Phonenumber, string Password)
-    : IRequest<CreateUserResponse>;
+    public record CreateUserCommand(string Username, string Email, string? Phonenumber, string Password)
+    : IRequest<OneOf<CreateUserResult, ErrorMessage>>;
 
 
-    public record CreateUserResponse(string? Error = null, string? AccessToken = null);
+    public record CreateUserResult(string AccessToken);
 
 
-    internal class CreateUserHandler : IRequestHandler<CreateUserRequest, CreateUserResponse>
+    public class CreateUserHandler : IRequestHandler<CreateUserCommand, OneOf<CreateUserResult, ErrorMessage>>
     {
+
         private readonly UserManager<AppUser> _userManager;
         private readonly IAccessTokenGenerator _tokenGenerator;
 
@@ -21,7 +22,7 @@ namespace OnlineAuctionBackend.Identity.Actions
             _userManager = userManager;
             _tokenGenerator = tokenGenerator;
         }
-        public async Task<CreateUserResponse> Handle(CreateUserRequest request,
+        public async Task<OneOf<CreateUserResult, ErrorMessage>> Handle(CreateUserCommand request,
             CancellationToken cancellationToken)
         {
             var user = new AppUser(request.Username)
@@ -36,13 +37,13 @@ namespace OnlineAuctionBackend.Identity.Actions
             {
                 var error = string.Join(',', result.Errors.Select(e => e.Description));
 
-                return new CreateUserResponse(error);
+                return new ErrorMessage(error);
             }
 
             var accessToken = _tokenGenerator.GenerateAccessToken(user.UserName, user.Email
                 , user.Id);
 
-            return new CreateUserResponse(AccessToken: accessToken);
+            return new CreateUserResult(AccessToken: accessToken);
         }
     }
 }

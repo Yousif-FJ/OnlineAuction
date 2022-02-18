@@ -1,7 +1,7 @@
 ﻿using MediatR;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.DependencyInjection;
-using OnlineAuctionBackend.Identity.Actions;
+using OnlineAuctionBackend.Identity.Actions.Commands;
 using OnlineAuctionBackend.Identity.Services;
 
 namespace OnlineAuctionBackend.Identity.StartupConfig

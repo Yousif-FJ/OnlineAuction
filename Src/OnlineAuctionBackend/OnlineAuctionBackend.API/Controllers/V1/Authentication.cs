@@ -2,11 +2,12 @@
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using OnlineAuctionBackend.API.Controllers.V1;
 using OnlineAuctionBackend.API.RemoteSchema.V1;
-using OnlineAuctionBackend.API.RequestResponseSchema.V1.Authentication;
+using OnlineAuctionBackend.API.RemoteSchema.V1.Authentication;
+using OnlineAuctionBackend.Identity.Actions.Commands;
+using OnlineAuctionBackend.Identity.Actions.Queries;
 
-namespace OnlineAuctionBackend.API.Controllers
+namespace OnlineAuctionBackend.API.Controllers.V1
 {
     [ApiController]
     public class Authentication : ControllerBase
@@ -20,21 +21,49 @@ namespace OnlineAuctionBackend.API.Controllers
             _mapper = mapper;
         }
         [AllowAnonymous]
-        [HttpPost(ManifestV1.Login)]
+        [HttpPost(Manifest.Login)]
         [ProducesResponseType(typeof(LoginResponse), 200)]
         [ProducesErrorResponseType(typeof(ErrorResponse))]
         public async Task<IActionResult> Login(LoginRequest request)
         {
-            var appRequest = _mapper.Map<LoginCommand>(request);
+            var command = _mapper.Map<LoginCommand>(request);
 
-            var actionResult = await _mediator.Send(appRequest);
+            var result = await _mediator.Send(command);
 
-            if (actionResult.AccessToken is null)
+            return result.Match<IActionResult>(
+                value => Ok(_mapper.Map<LoginResponse>(value)),
+                error => BadRequest(_mapper.Map<ErrorResponse>(error)));
+        }
+
+        [AllowAnonymous]
+        [HttpPost(Manifest.CreateUser)]
+        [ProducesResponseType(typeof(CreateUserResponse), 200)]
+        [ProducesErrorResponseType(typeof(ErrorResponse))]
+        public async Task<IActionResult> CreateUser(CreateUserRequest request)
+        {
+            var command = _mapper.Map<CreateUserCommand>(request);
+
+            var result = await _mediator.Send(command);
+
+            return result.Match<IActionResult>(
+                value => Ok(_mapper.Map<CreateUserResponse>(value)),
+                error => BadRequest(_mapper.Map<ErrorResponse>(error)));
+        }
+
+        [Authorize]
+        [HttpGet(Manifest.GetUser)]
+        [ProducesResponseType(typeof(RemoteUser), 200)]
+        [ProducesErrorResponseType(typeof(ErrorResponse))]
+        public async Task<IActionResult> GetMyUser()
+        {
+            var userId = HttpContext.GetUserId();
+            var result = await _mediator.Send(new GetUserQuery(userId));
+
+            if (result is null)
             {
-                return BadRequest(_mapper.Map<ErrorResponse>(actionResult));
+                return NotFound();
             }
-
-            return Ok(_mapper.Map<LoginResponse>(actionResult));
+            return Ok(_mapper.Map<RemoteUser>(result));
         }
     }
 }
