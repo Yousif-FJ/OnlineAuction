@@ -1,0 +1,26 @@
+#See https://aka.ms/containerfastmode to understand how Visual Studio uses this Dockerfile to build your images for faster debugging.
+
+FROM mcr.microsoft.com/dotnet/aspnet:6.0 AS base
+WORKDIR /app
+EXPOSE 80
+EXPOSE 443
+
+FROM mcr.microsoft.com/dotnet/sdk:6.0 AS build
+WORKDIR /src
+COPY ["AuctionBackend.API/AuctionBackend.Api.csproj", "AuctionBackend.API/"]
+COPY ["AuctionBackend.Application/AuctionBackend.Application.csproj", "AuctionBackend.Application/"]
+COPY ["AuctionBackend.Infrastructure/AuctionBackend.Infrastructure.csproj", "AuctionBackend.Infrastructure/"]
+COPY ["AuctionBackend.Domain/AuctionBackend.Domain.csproj", "AuctionBackend.Domain/"]
+COPY ["AuctionBackend.Identity/AuctionBackend.Identity.csproj", "AuctionBackend.Identity/"]
+RUN dotnet restore "AuctionBackend.API/AuctionBackend.Api.csproj"
+COPY . .
+WORKDIR "/src/AuctionBackend.API"
+RUN dotnet build "AuctionBackend.Api.csproj" -c Release -o /app/build
+
+FROM build AS publish
+RUN dotnet publish "AuctionBackend.Api.csproj" -c Release -o /app/publish
+
+FROM base AS final
+WORKDIR /app
+COPY --from=publish /app/publish .
+CMD ASPNETCORE_URLS=http://*:$PORT dotnet AuctionBackend.Api.dll
