@@ -9,10 +9,7 @@ on:
     branches: [ BackendRelease ]
 
 # Define variables
-env: 
-  HEROKU_API_KEY: ${{ secrets.HEROKU_API_KEY }}
-  APP_NAME: ${{ 'online-auction0' }}
-  
+
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
   # This workflow contains a single job called "build"
@@ -23,19 +20,11 @@ jobs:
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
     # Clone the repository
-    - name: Checkout
-      uses: actions/checkout@v2
-
-    # Change directory to code
-    - name: ChnageDirectory
-      run: cd Src/OnlineAuctionBackend
-      
-    # Build Docker image
-    - name: Docker build
-      run: docker login --username=_ --password=$HEROKU_API_KEY registry.heroku.com
-
-    # Push the Docker image to Heroku Container Registry
-    - name: Publish
-      run: |
-        heroku container:push web -a $APP_NAME
-        heroku container:release web -a $APP_NAME
+      - uses: actions/checkout@v2
+      - uses: akhileshns/heroku-deploy@v3.12.12 # This is the action
+        with:
+          heroku_api_key: ${{secrets.HEROKU_API_KEY}}
+          heroku_app_name: "online-auction0" #Must be unique in Heroku
+          heroku_email: ${{secrets.HEROKU_EMAIL}}
+          usedocker: true
+          appdir: "Src/OnlineAuctionBackend"
