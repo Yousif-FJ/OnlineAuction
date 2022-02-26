@@ -1,9 +1,9 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using Npgsql;
-using AuctionBackend.Infrastructure.Data;
+using AuctionBackend.Application.Database;
 
-namespace AuctionBackend.Infrastructure.StartupConfig
+namespace AuctionBackend.Application.StartupConfig
 {
     public static class DatabaseRegistation
     {

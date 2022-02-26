@@ -1,4 +1,4 @@
-﻿namespace AuctionBackend.Domain.Models
+﻿namespace AuctionBackend.Application.Models
 {
     public class Auction : EntityBase
     {

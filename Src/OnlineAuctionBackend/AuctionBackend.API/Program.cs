@@ -1,10 +1,7 @@
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.OpenApi.Models;
 using AuctionBackend.Api.MapProfile.V1;
 using AuctionBackend.Application.StartupConfig;
 using AuctionBackend.Identity.StartupConfig;
-using AuctionBackend.Infrastructure.StartupConfig;
-using System.Text;
 
 var builder = WebApplication.CreateBuilder(args);
 

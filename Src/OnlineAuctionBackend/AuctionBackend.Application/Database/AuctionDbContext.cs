@@ -1,7 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using AuctionBackend.Domain.Models;
+using AuctionBackend.Application.Models;
 
-namespace AuctionBackend.Infrastructure.Data
+namespace AuctionBackend.Application.Database
 {
     public class AuctionDbContext : DbContext
     {

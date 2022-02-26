@@ -10,12 +10,12 @@ using AuctionBackend.Identity.Actions.Queries;
 namespace AuctionBackend.Api.Controllers.V1
 {
     [ApiController]
-    public class Authentication : ControllerBase
+    public class AuthenticationController : ControllerBase
     {
         private readonly IMediator _mediator;
         private readonly IMapper _mapper;
 
-        public Authentication(IMediator mediator, IMapper mapper)
+        public AuthenticationController(IMediator mediator, IMapper mapper)
         {
             _mediator = mediator;
             _mapper = mapper;
