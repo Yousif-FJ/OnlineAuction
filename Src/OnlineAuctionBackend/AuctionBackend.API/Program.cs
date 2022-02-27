@@ -2,6 +2,9 @@ using Microsoft.AspNetCore.Authorization;
 using AuctionBackend.Api.MapProfile.V1;
 using AuctionBackend.Application.StartupConfig;
 using AuctionBackend.Identity.StartupConfig;
+using MediatR;
+using MediatR.Extensions.FluentValidation.AspNetCore;
+using AuctionBackend.Application.Actions.Items;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -24,7 +27,9 @@ builder.Services.CustomConfigIdentityDb(builder.Configuration["DATABASE_URL"]);
 builder.Services.AddAutoMapper(typeof(AuthenticationMapPofile));
 
 builder.Services.AddAppIdentityServices();
-builder.Services.AddAppServices();
+
+builder.Services.AddMediatR(typeof(AddItemHandler));
+builder.Services.AddFluentValidation(new[] { typeof(AddItemHandler).Assembly });
 
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen(options =>
