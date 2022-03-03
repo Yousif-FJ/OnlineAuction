@@ -1,10 +1,13 @@
 ﻿using AuctionBackend.Api.Controllers.ControllerFilter;
+using AuctionBackend.Api.RemoteSchema.V1;
 using AuctionBackend.Api.RemoteSchema.V1.Item;
 using AuctionBackend.Application.Actions.Items;
 using AuctionBackend.Application.Models;
 using AutoMapper;
+using AutoMapper.QueryableExtensions;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
+using X.PagedList;
 
 namespace AuctionBackend.Api.Controllers.V1
 {
@@ -21,9 +24,13 @@ namespace AuctionBackend.Api.Controllers.V1
             this.mediator = mediator;
         }
         [HttpGet(Manifest.GetAllItem)]
-        public async Task<IActionResult> GetAllItems()
+        public async Task<IActionResult> GetAllItems([FromQuery]PageInfoRequest pageInfo)
         {
-            throw new NotImplementedException();
+            var result = await mediator.Send(new GetAllItemsQuery());
+            var response = await result
+                .ProjectTo<ItemRemote>(mapper.ConfigurationProvider)
+                .ToPagedListAsync(pageInfo.PageNumber, pageInfo.PageSize);
+            return Ok(response);
         }
 
         [HttpPost(Manifest.PostItem)]
