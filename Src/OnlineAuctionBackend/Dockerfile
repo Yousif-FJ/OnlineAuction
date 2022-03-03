@@ -9,8 +9,6 @@ FROM mcr.microsoft.com/dotnet/sdk:6.0 AS build
 WORKDIR /src
 COPY ["AuctionBackend.API/AuctionBackend.Api.csproj", "AuctionBackend.API/"]
 COPY ["AuctionBackend.Application/AuctionBackend.Application.csproj", "AuctionBackend.Application/"]
-COPY ["AuctionBackend.Infrastructure/AuctionBackend.Infrastructure.csproj", "AuctionBackend.Infrastructure/"]
-COPY ["AuctionBackend.Domain/AuctionBackend.Domain.csproj", "AuctionBackend.Domain/"]
 COPY ["AuctionBackend.Identity/AuctionBackend.Identity.csproj", "AuctionBackend.Identity/"]
 RUN dotnet restore "AuctionBackend.API/AuctionBackend.Api.csproj"
 COPY . .
