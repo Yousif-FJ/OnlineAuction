@@ -6,11 +6,25 @@ using MediatR;
 using MediatR.Extensions.FluentValidation.AspNetCore;
 using AuctionBackend.Application.Actions.Items;
 
+
+var MyAllowSpecificOrigins = "_myAllowSpecificOrigins";
+
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 
 builder.Services.CustomConfigAuthentication(builder.Configuration);
+
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy(name: MyAllowSpecificOrigins,
+                      builder =>
+                      {
+                          builder.WithOrigins("http://localhost",
+                                              "https://localhost");
+                      });
+});
 
 builder.Services.AddAuthorization(options =>
 {
@@ -58,6 +72,9 @@ app.UseSwaggerUI(options =>
 app.UseHttpsRedirection();
 
 app.UseAuthentication();
+
+app.UseCors(MyAllowSpecificOrigins);
+
 app.UseAuthorization();
 
 app.MapControllers();
