@@ -1,5 +1,9 @@
-﻿namespace AuctionBackend.Application.Models
+﻿using Microsoft.EntityFrameworkCore;
+using System.ComponentModel.DataAnnotations;
+
+namespace AuctionBackend.Application.Models
 {
+    [Index(nameof(IdentityId), IsUnique = true)]
     public class User : EntityBase
     {
         public User(string identityId)
@@ -9,7 +13,7 @@
             Auctions = new HashSet<Auction>();
             Items = new HashSet<Item>();
         }
-
+        [MaxLength(40)]
         public string IdentityId { get; private set; }
 
         public ICollection<Item> Items { get; private set; }
