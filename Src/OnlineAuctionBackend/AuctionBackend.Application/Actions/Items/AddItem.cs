@@ -7,7 +7,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace AuctionBackend.Application.Actions.Items
 {
-    public record AddItemCommand(Item Item, string identityUserId) : IRequest<Item>;
+    public record AddItemCommand(Item Item, string IdentityUserId) : IRequest<Item>;
 
     public class AddItemValidator : AbstractValidator<AddItemCommand>
     {
@@ -28,7 +28,7 @@ namespace AuctionBackend.Application.Actions.Items
         public async Task<Item> Handle(AddItemCommand request, CancellationToken ct)
         {
             var user = await AuctionUserTool.GetOrCreateAuctionUserAsync(dbContext,
-                request.identityUserId);
+                request.IdentityUserId);
             request.Item.Owner = user;
 
             await dbContext.Items.AddAsync(request.Item, ct);

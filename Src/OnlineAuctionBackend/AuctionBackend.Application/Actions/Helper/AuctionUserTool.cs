@@ -6,7 +6,8 @@ namespace AuctionBackend.Application.Actions.Helper
 {
     public static class AuctionUserTool
     {
-        public static async Task<User> GetOrCreateAuctionUserAsync(AuctionDbContext dbContext, string IdentityUserId)
+        public static async Task<User> GetOrCreateAuctionUserAsync(AuctionDbContext dbContext,
+            string IdentityUserId)
         {
             var user = await dbContext.Users.FirstOrDefaultAsync(
                 u => u.IdentityId == IdentityUserId);
