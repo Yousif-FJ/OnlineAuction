@@ -23,10 +23,13 @@ namespace AuctionBackend.Api.Controllers.V1
             this.mapper = mapper;
             this.mediator = mediator;
         }
-        [HttpGet(Manifest.GetAllItem)]
-        public async Task<IActionResult> GetAllItems([FromQuery]PageInfoRequest pageInfo)
+        [HttpGet(Manifest.GetMyItems)]
+        [ProducesResponseType(typeof(ItemRemote), 200)]
+        [ProducesErrorResponseType(typeof(ErrorResponse))]
+        public async Task<IActionResult> GetMyItems([FromQuery]PageInfoRequest pageInfo)
         {
-            var result = await mediator.Send(new GetAllItemsQuery());
+            var identityUserId = HttpContext.GetUserId();
+            var result = await mediator.Send(new GetMyItemsQuery(identityUserId));
             var response = await result
                 .ProjectTo<ItemRemote>(mapper.ConfigurationProvider)
                 .ToPagedListAsync(pageInfo.PageNumber, pageInfo.PageSize);
@@ -34,6 +37,8 @@ namespace AuctionBackend.Api.Controllers.V1
         }
 
         [HttpPost(Manifest.PostItem)]
+        [ProducesResponseType(typeof(ItemRemote), 200)]
+        [ProducesErrorResponseType(typeof(ErrorResponse))]
         public async Task<IActionResult> PostItem(CreateItemRequest request)
         {
             var identityUserId = HttpContext.GetUserId();
@@ -41,6 +46,19 @@ namespace AuctionBackend.Api.Controllers.V1
             var command = new AddItemCommand(item, identityUserId);
             var result = await mediator.Send(command);
             return Ok(mapper.Map<ItemRemote>(result));
+        }
+
+        [HttpPost(Manifest.PostItemPhoto)]
+        [Produces("application/json")]
+        [ProducesResponseType(typeof(string), 200)]
+        [ProducesErrorResponseType(typeof(ErrorResponse))]
+        public async Task<IActionResult> PostItem([FromForm]AddItemPhotoRequest request)
+        {
+            var identityUserId = HttpContext.GetUserId();
+            var command = new AddItemPictureCommand(request.Id, identityUserId,
+                request.Photo);
+            var result = await mediator.Send(command);
+            return Ok(result);
         }
     }
 }
