@@ -1,13 +1,13 @@
-﻿using AuctionBackend.Application.Actions.Helper;
-using AuctionBackend.Application.Database;
+﻿using AuctionBackend.Application.Database;
 using AuctionBackend.Application.Models;
+using AuctionBackend.Application.Services;
 using FluentValidation;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 
 namespace AuctionBackend.Application.Actions.Items
 {
-    public record AddItemCommand(Item Item, string IdentityUserId) : IRequest<Item>;
+    public record AddItemCommand(Item Item) : IRequest<Item>;
 
     public class AddItemValidator : AbstractValidator<AddItemCommand>
     {
@@ -20,15 +20,16 @@ namespace AuctionBackend.Application.Actions.Items
     public class AddItemHandler : IRequestHandler<AddItemCommand, Item>
     {
         private readonly AuctionDbContext dbContext;
+        private readonly IAuctionUserManager userManager;
 
-        public AddItemHandler(AuctionDbContext dbContext)
+        public AddItemHandler(AuctionDbContext dbContext, IAuctionUserManager userManager)
         {
             this.dbContext = dbContext;
+            this.userManager = userManager;
         }
         public async Task<Item> Handle(AddItemCommand request, CancellationToken ct)
         {
-            var user = await AuctionUserTool.GetOrCreateAuctionUserAsync(dbContext,
-                request.IdentityUserId);
+            var user = await userManager.GetOrCreateAsync();
             request.Item.Owner = user;
 
             await dbContext.Items.AddAsync(request.Item, ct);

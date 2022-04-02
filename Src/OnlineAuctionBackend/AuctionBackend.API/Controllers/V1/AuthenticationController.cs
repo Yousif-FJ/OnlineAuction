@@ -6,6 +6,7 @@ using AuctionBackend.Api.RemoteSchema.V1;
 using AuctionBackend.Api.RemoteSchema.V1.Authentication;
 using AuctionBackend.Identity.Actions.Commands;
 using AuctionBackend.Identity.Actions.Queries;
+using AuctionBackend.Application.Actions.Helper;
 
 namespace AuctionBackend.Api.Controllers.V1
 {
