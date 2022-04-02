@@ -26,13 +26,12 @@ namespace AuctionBackend.Api.Controllers.V1
         [HttpGet(Manifest.GetMyItems)]
         [ProducesResponseType(typeof(ItemRemote), 200)]
         [ProducesErrorResponseType(typeof(ErrorResponse))]
-        public async Task<IActionResult> GetMyItems([FromQuery]PageInfoRequest pageInfo)
+        public async Task<IActionResult> GetMyItems()
         {
-            var identityUserId = HttpContext.GetUserId();
-            var result = await mediator.Send(new GetMyItemsQuery(identityUserId));
+            var result = await mediator.Send(new GetMyItemsQuery());
             var response = await result
                 .ProjectTo<ItemRemote>(mapper.ConfigurationProvider)
-                .ToPagedListAsync(pageInfo.PageNumber, pageInfo.PageSize);
+                .ToListAsync();
             return Ok(response);
         }
 
@@ -41,9 +40,8 @@ namespace AuctionBackend.Api.Controllers.V1
         [ProducesErrorResponseType(typeof(ErrorResponse))]
         public async Task<IActionResult> PostItem(CreateItemRequest request)
         {
-            var identityUserId = HttpContext.GetUserId();
             var item = mapper.Map<Item>(request);
-            var command = new AddItemCommand(item, identityUserId);
+            var command = new AddItemCommand(item);
             var result = await mediator.Send(command);
             return Ok(mapper.Map<ItemRemote>(result));
         }
@@ -54,9 +52,7 @@ namespace AuctionBackend.Api.Controllers.V1
         [ProducesErrorResponseType(typeof(ErrorResponse))]
         public async Task<IActionResult> PostItem([FromForm]AddItemPhotoRequest request)
         {
-            var identityUserId = HttpContext.GetUserId();
-            var command = new AddItemPictureCommand(request.Id, identityUserId,
-                request.Photo);
+            var command = new AddItemPictureCommand(request.Id, request.Photo);
             var result = await mediator.Send(command);
             return Ok(result);
         }

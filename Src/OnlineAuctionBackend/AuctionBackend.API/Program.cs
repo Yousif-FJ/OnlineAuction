@@ -5,8 +5,8 @@ using AuctionBackend.Identity.StartupConfig;
 using MediatR;
 using MediatR.Extensions.FluentValidation.AspNetCore;
 using AuctionBackend.Application.Actions.Items;
-using CloudinaryDotNet;
 using AuctionBackend.Application.Services;
+using CloudinaryDotNet;
 
 var MyAllowSpecificOrigins = "_myAllowSpecificOrigins";
 
@@ -36,12 +36,14 @@ builder.Services.AddAuthorization(options =>
 });
 
 builder.Services.AddControllers();
+builder.Services.AddHttpContextAccessor();
 
 builder.Services.CustomConfigAuctionDb(builder.Configuration["DATABASE_URL"]);
 builder.Services.CustomConfigIdentityDb(builder.Configuration["DATABASE_URL"]);
 
 builder.Services.AddAutoMapper(typeof(AuthenticationMapPofile));
 
+builder.Services.AddScoped<IAuctionUserManager, AuctionUserManager>();
 builder.Services.AddScoped<IPictureProvider, PictureProvider>();
 builder.Services.AddSingleton<Cloudinary>(
     new Cloudinary(builder.Configuration["CLOUDINARY_URL"]));

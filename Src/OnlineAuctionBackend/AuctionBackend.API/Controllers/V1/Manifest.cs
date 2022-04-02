@@ -12,5 +12,9 @@
         public const string DeleteItem = "/v1/item";
         public const string GetItem = "/v1/item";
         public const string GetMyItems = "/v1/myitems";
+
+        public const string PostAuction = "/v1/auction";
+        public const string GetAuction = "/v1/auction";
+        public const string GetAllAuctions = "/v1/auctions";
     }
 }
