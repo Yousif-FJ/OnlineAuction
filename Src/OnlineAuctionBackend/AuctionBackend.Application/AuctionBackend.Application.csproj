@@ -8,11 +8,11 @@
 
 	<ItemGroup>
 		<PackageReference Include="CloudinaryDotNet" Version="1.17.0" />
-		<PackageReference Include="FluentValidation" Version="10.3.6" />
+		<PackageReference Include="FluentValidation" Version="10.4.0" />
 		<PackageReference Include="MediatR" Version="10.0.1" />
 		<PackageReference Include="MediatR.Extensions.FluentValidation.AspNetCore" Version="2.0.0" />
 		<PackageReference Include="MediatR.Extensions.Microsoft.DependencyInjection" Version="10.0.1" />
-	    <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="6.0.2" />
+	    <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="6.0.4" />
 	</ItemGroup>
 
 </Project>

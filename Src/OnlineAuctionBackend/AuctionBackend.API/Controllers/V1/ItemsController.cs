@@ -56,5 +56,15 @@ namespace AuctionBackend.Api.Controllers.V1
             var result = await mediator.Send(command);
             return Ok(result);
         }
+
+        [HttpDelete(Manifest.DeleteItem)]
+        [ProducesResponseType(typeof(ItemRemote), 200)]
+        [ProducesErrorResponseType(typeof(ErrorResponse))]
+        public async Task<IActionResult> DeleteItem(int itemId)
+        {
+            var command = new RemoveItemCommand(itemId);
+            var result = await mediator.Send(command);
+            return Ok(mapper.Map<ItemRemote>(result));
+        }
     }
 }

@@ -9,9 +9,8 @@ namespace AuctionBackend.Api.Controllers.ControllerFilter
     {
         public void OnException(ExceptionContext context)
         {
-            if (context.Exception is ValidationException)
+            if (context.Exception is ValidationException exception)
             {
-                var exception = (ValidationException)context.Exception;
                 var firstError = exception.Errors.First();
 
                 context.Result = new BadRequestObjectResult(

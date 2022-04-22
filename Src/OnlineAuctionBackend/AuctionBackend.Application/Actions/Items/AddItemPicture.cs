@@ -13,15 +13,6 @@ namespace AuctionBackend.Application.Actions.Items
         public AddItemPictureValidator(AuctionDbContext dbContext, IAuctionUserManager userManager)
         {
             RuleFor(request => request.ItemId)
-                .Custom((itemId,context) => {
-                    var item = dbContext.Items
-                        .Find(new object?[] { itemId });
-
-                    if (item is null)
-                        context.AddFailure("Item doesn't exist");
-                    });
-
-            RuleFor(request => request.ItemId)
                 .Custom((userId,context) => {
                     var user = userManager.GetOrCreateAsync().GetAwaiter().GetResult();
                     dbContext.ValidateItemExistAsync(context,
