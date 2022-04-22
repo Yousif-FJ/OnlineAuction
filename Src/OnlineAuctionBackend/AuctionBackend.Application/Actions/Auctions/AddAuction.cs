@@ -21,6 +21,14 @@ namespace AuctionBackend.Application.Actions.Auctions
                     var user = userManager.GetOrCreateAsync().GetAwaiter().GetResult();
                     dbContext.ValidateItemExistAsync(context,
                         context.InstanceToValidate.Auction.ItemId).GetAwaiter().GetResult();
+
+                    var item = dbContext.Items.Include(i => i.Auction)
+                            .First(i => i.Id == context.InstanceToValidate.Auction.ItemId);
+
+                    if (item.Auction is not null)
+                    {
+                        context.AddFailure("Item was already in an acution");
+                    }
                 });
         }
     }
