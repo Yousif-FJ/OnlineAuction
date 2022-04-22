@@ -11,6 +11,7 @@
         }
 
         public string Name { get; set; }
+        public string? Description { get; set; }
         public double StartingPrice { get; set; }
         public string? PhotoUrl { get; set; }
         public string? PhotoId { get; set; }
