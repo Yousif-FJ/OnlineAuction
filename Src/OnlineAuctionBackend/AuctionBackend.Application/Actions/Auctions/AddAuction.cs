@@ -16,16 +16,16 @@ namespace AuctionBackend.Application.Actions.Auctions
         {
             RuleFor(request => request.Auction.ExpireDate).GreaterThan(DateTime.Now);
             RuleFor(request => request.Auction.ItemId)
-                .Custom((userId, context) =>
+                .Custom((ItemId, context) =>
                 {
                     var user = userManager.GetOrCreateAsync().GetAwaiter().GetResult();
                     dbContext.ValidateItemExistAsync(context,
-                        context.InstanceToValidate.Auction.ItemId).GetAwaiter().GetResult();
+                        ItemId).GetAwaiter().GetResult();
 
                     var item = dbContext.Items.Include(i => i.Auction)
-                            .First(i => i.Id == context.InstanceToValidate.Auction.ItemId);
+                            .FirstOrDefault(i => i.Id == context.InstanceToValidate.Auction.ItemId);
 
-                    if (item.Auction is not null)
+                    if (item?.Auction is not null)
                     {
                         context.AddFailure("Item was already in an acution");
                     }
