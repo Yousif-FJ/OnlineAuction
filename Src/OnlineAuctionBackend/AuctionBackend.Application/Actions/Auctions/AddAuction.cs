@@ -10,24 +10,27 @@ namespace AuctionBackend.Application.Actions.Auctions
 {
     public record AddAuctionCommand(Auction Auction) : IRequest<Auction>;
 
-    public class AddItemValidator : AbstractValidator<AddAuctionCommand>
+    public class AddAuctionValidator : AbstractValidator<AddAuctionCommand>
     {
-        public AddItemValidator(IAuctionUserManager userManager, AuctionDbContext dbContext)
+        public AddAuctionValidator(IAuctionUserManager userManager, AuctionDbContext dbContext)
         {
-            RuleFor(request => request.Auction.ExpireDate).GreaterThan(DateTime.Now);
+            RuleFor(request => request.Auction.ExpireDate)
+                .GreaterThan(DateTime.Now);
+
             RuleFor(request => request.Auction.ItemId)
                 .Custom((ItemId, context) =>
                 {
                     var user = userManager.GetOrCreateAsync().GetAwaiter().GetResult();
+
                     dbContext.ValidateItemExistAsync(context,
                         ItemId).GetAwaiter().GetResult();
 
-                    var item = dbContext.Items.Include(i => i.Auction)
-                            .FirstOrDefault(i => i.Id == context.InstanceToValidate.Auction.ItemId);
+                    var item = dbContext.Items.Find(ItemId);
 
                     if (item?.Auction is not null)
                     {
                         context.AddFailure("Item was already in an acution");
+                        return;
                     }
                 });
         }

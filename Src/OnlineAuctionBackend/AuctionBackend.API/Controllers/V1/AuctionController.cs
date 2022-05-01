@@ -38,12 +38,22 @@ namespace AuctionBackend.Api.Controllers.V1
         [HttpPost(Manifest.PostAuction)]
         [ProducesResponseType(typeof(AuctionRemote), 200)]
         [ProducesErrorResponseType(typeof(ErrorResponse))]
-        public async Task<IActionResult> PostItem(CreateAuctionRequest request)
+        public async Task<IActionResult> PostAuction(CreateAuctionRequest request)
         {
             var item = mapper.Map<Auction>(request);
             var command = new AddAuctionCommand(item);
             var result = await mediator.Send(command);
             return Ok(mapper.Map<AuctionRemote>(result));
+        }
+
+        [HttpPost(Manifest.PostBid)]
+        [ProducesResponseType(typeof(BidRemote), 200)]
+        [ProducesErrorResponseType(typeof(ErrorResponse))]
+        public async Task<IActionResult> PostBid(AddBidRequest request)
+        {
+            var command = mapper.Map<AddBidCommand>(request);
+            var result = await mediator.Send(command);
+            return Ok(mapper.Map<BidRemote>(result));
         }
     }
 }
