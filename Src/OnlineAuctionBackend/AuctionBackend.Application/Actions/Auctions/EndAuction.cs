@@ -33,16 +33,18 @@ namespace AuctionBackend.Application.Actions.Auctions
 
                 auctionDb.Entry(auction!).Collection(a => a.Bids)
                     .Load();
-                var topBid = auction!.Bids.OrderByDescending(a => a.Value)
+
+                var topBidderUserId = auction!.Bids.OrderByDescending(a => a.Value)
+                    .Select(b => b.UserId)
                     .FirstOrDefault();
 
-                if (topBid is null)
+                if (topBidderUserId == default)
                 {
                     context.AddFailure("Auction has no bidder");
                     return;
                 }
 
-                if (topBid.UserId != user.Id)
+                if (topBidderUserId != user.Id)
                 {
                     context.AddFailure("User is not top bidder");
                     return;
@@ -77,6 +79,7 @@ namespace AuctionBackend.Application.Actions.Auctions
                 .LoadAsync(ct);
 
             auction.Item.OwnerId = topBid!.UserId;
+            auction.Item.StartingPrice = topBid!.Value;
 
             await auctionDb.SaveChangesAsync(ct);
 

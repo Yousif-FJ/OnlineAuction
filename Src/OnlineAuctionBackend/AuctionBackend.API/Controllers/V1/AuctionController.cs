@@ -56,12 +56,22 @@ namespace AuctionBackend.Api.Controllers.V1
             return Ok(mapper.Map<BidRemote>(result));
         }
 
-        [HttpPost(Manifest.EndAuction)]
+        [HttpPatch(Manifest.EndAuction)]
         [ProducesResponseType(typeof(AuctionRemote), 200)]
         [ProducesErrorResponseType(typeof(ErrorResponse))]
         public async Task<IActionResult> EndAuction(int auctionId)
         {
             var command = new EndAuctionCommand(auctionId);
+            var result = await mediator.Send(command);
+            return Ok(mapper.Map<AuctionRemote>(result));
+        }
+
+        [HttpDelete(Manifest.DeleteAuction)]
+        [ProducesResponseType(typeof(AuctionRemote), 200)]
+        [ProducesErrorResponseType(typeof(ErrorResponse))]
+        public async Task<IActionResult> DeleteAuction(int auctionId)
+        {
+            var command = new DeleteAuctionCommand(auctionId);
             var result = await mediator.Send(command);
             return Ok(mapper.Map<AuctionRemote>(result));
         }

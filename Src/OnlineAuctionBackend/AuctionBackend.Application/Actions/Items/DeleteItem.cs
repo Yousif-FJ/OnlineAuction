@@ -8,10 +8,10 @@ using Microsoft.EntityFrameworkCore;
 
 namespace AuctionBackend.Application.Actions.Items
 {
-    public record RemoveItemCommand(int Id) : IRequest<Item>;
-    public class RemoveItemValidator : AbstractValidator<RemoveItemCommand>
+    public record DeleteItemCommand(int Id) : IRequest<Item>;
+    public class DeleteItemValidator : AbstractValidator<DeleteItemCommand>
     {
-        public RemoveItemValidator(AuctionDbContext dbContext, IAuctionUserManager userManager)
+        public DeleteItemValidator(AuctionDbContext dbContext, IAuctionUserManager userManager)
         {
             RuleFor(x => x.Id).NotEmpty();
             RuleFor(x => x.Id).Custom((Id, context) =>
@@ -34,15 +34,15 @@ namespace AuctionBackend.Application.Actions.Items
             });
         }
     }
-    public class RemoveItemHandler : IRequestHandler<RemoveItemCommand, Item>
+    public class DeleteItemHandler : IRequestHandler<DeleteItemCommand, Item>
     {
         private readonly AuctionDbContext dbContext;
 
-        public RemoveItemHandler(AuctionDbContext dbContext)
+        public DeleteItemHandler(AuctionDbContext dbContext)
         {
             this.dbContext = dbContext;
         }
-        public async Task<Item> Handle(RemoveItemCommand request, CancellationToken cancellationToken)
+        public async Task<Item> Handle(DeleteItemCommand request, CancellationToken cancellationToken)
         {
             var item = await dbContext.Items.FindAsync(new object?[] { request.Id },
                 cancellationToken: cancellationToken);
