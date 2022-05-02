@@ -58,7 +58,7 @@ namespace AuctionBackend.Application.Actions.Auctions
                         return;
                     }
 
-                    if (auction.ExpireDate < DateTime.UtcNow)
+                    if (auction.HasEnded)
                     {
                         context.AddFailure("Auction has expired");
                         return;

@@ -23,5 +23,7 @@
             get => _item ??
                 throw new InvalidOperationException("Uninitialized property: " + nameof(Item));
         }
+
+        public bool HasEnded { get => ExpireDate < DateTime.UtcNow; }
     }
 }
