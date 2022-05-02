@@ -55,5 +55,15 @@ namespace AuctionBackend.Api.Controllers.V1
             var result = await mediator.Send(command);
             return Ok(mapper.Map<BidRemote>(result));
         }
+
+        [HttpPost(Manifest.EndAuction)]
+        [ProducesResponseType(typeof(AuctionRemote), 200)]
+        [ProducesErrorResponseType(typeof(ErrorResponse))]
+        public async Task<IActionResult> EndAuction(int auctionId)
+        {
+            var command = new EndAuctionCommand(auctionId);
+            var result = await mediator.Send(command);
+            return Ok(mapper.Map<AuctionRemote>(result));
+        }
     }
 }
