@@ -26,9 +26,10 @@ namespace AuctionBackend.Api.Controllers.V1
         [HttpGet(Manifest.GetAllAuctions)]
         [ProducesResponseType(typeof(AuctionRemote), 200)]
         [ProducesErrorResponseType(typeof(ErrorResponse))]
-        public async Task<IActionResult> GetAllAuctions([FromQuery]PageInfoRequest pageInfo)
+        public async Task<IActionResult> GetAllAuctions([FromQuery]PageInfoRequest pageInfo,
+            [FromQuery] bool MyAuctionsOnly)
         {
-            var result = await mediator.Send(new GetAllAuctionsQuery());
+            var result = await mediator.Send(new GetAllAuctionsQuery(MyAuctionsOnly));
             IPagedList<AuctionRemote>? response = await result
                 .ProjectTo<AuctionRemote>(mapper.ConfigurationProvider)
                 .ToPagedListAsync(pageInfo.PageNumber, pageInfo.PageSize);

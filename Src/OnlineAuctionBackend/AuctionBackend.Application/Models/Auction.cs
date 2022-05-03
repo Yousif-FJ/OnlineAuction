@@ -1,4 +1,6 @@
-﻿namespace AuctionBackend.Application.Models
+﻿using System.Linq.Expressions;
+
+namespace AuctionBackend.Application.Models
 {
     public class Auction : EntityBase
     {
@@ -24,6 +26,11 @@
                 throw new InvalidOperationException("Uninitialized property: " + nameof(Item));
         }
 
-        public bool HasEnded { get => ExpireDate < DateTime.UtcNow; }
+        public bool HasEnded { get => HasEndedFunc.Invoke(this); }
+
+        public static readonly Expression<Func<Auction, bool>> HasEndedExpression =
+            (Auction) => Auction.ExpireDate < DateTime.UtcNow;
+
+        private static readonly Func<Auction, bool> HasEndedFunc = HasEndedExpression.Compile();
     }
 }
