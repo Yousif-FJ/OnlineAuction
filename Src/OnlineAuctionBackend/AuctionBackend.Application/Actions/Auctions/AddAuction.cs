@@ -22,14 +22,20 @@ namespace AuctionBackend.Application.Actions.Auctions
                 {
                     var user = userManager.GetOrCreateAsync().GetAwaiter().GetResult();
 
-                    dbContext.ValidateItemExistAsync(context,
+                    var doesExist = dbContext.ValidateItemExistAsync(context,
                         ItemId).GetAwaiter().GetResult();
+
+                    if (!doesExist)
+                        return;
 
                     var item = dbContext.Items.Find(ItemId);
 
-                    if (item?.Auction is not null)
+                    dbContext.Entry(item!).Reference(i => i.Auction)
+                        .Load();
+
+                    if (item!.Auction is not null)
                     {
-                        context.AddFailure("Item was already in an acution");
+                        context.AddFailure("Item is already in an acution");
                         return;
                     }
                 });

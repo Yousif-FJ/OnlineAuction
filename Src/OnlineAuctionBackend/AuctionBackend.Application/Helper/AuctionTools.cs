@@ -31,7 +31,7 @@ namespace AuctionBackend.Application.Actions.Helper
             return userId;
         }
 
-        public static async Task ValidateItemExistAsync<T>(this AuctionDbContext auctionDb,
+        public static async Task<bool> ValidateItemExistAsync<T>(this AuctionDbContext auctionDb,
             ValidationContext<T> ValidationContext, int itemId)
         {
             var item = await auctionDb.Items
@@ -40,7 +40,9 @@ namespace AuctionBackend.Application.Actions.Helper
             if (item is null)
             {
                 ValidationContext.AddFailure("Item doesn't exist");
+                return false;
             }
+            return true;
         }
 
         public static async Task ValidateItemOwnerAsync<T>(this AuctionDbContext auctionDb,
