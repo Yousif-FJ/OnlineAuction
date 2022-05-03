@@ -24,7 +24,7 @@ namespace AuctionBackend.Api.Controllers.V1
             this.mediator = mediator;
         }
         [HttpGet(Manifest.GetAllAuctions)]
-        [ProducesResponseType(typeof(AuctionRemote), 200)]
+        [ProducesResponseType(typeof(PagedResponse<IPagedList<AuctionRemote>>), 200)]
         [ProducesErrorResponseType(typeof(ErrorResponse))]
         public async Task<IActionResult> GetAllAuctions([FromQuery]PageInfoRequest pageInfo,
             [FromQuery] bool MyAuctionsOnly)
