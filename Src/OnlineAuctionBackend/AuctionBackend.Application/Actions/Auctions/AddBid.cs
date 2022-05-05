@@ -34,9 +34,16 @@ namespace AuctionBackend.Application.Actions.Auctions
                         return;
                     }
 
-                    if (auction.Bids.AsQueryable().Any())
+                    var isThereAnyBid = dbContext.Entry(auction)
+                       .Collection(a => a.Bids)
+                       .Query()
+                       .Any();
+
+                    if (isThereAnyBid)
                     {
-                        var maxBidValue = auction.Bids.AsQueryable()
+                        var maxBidValue = dbContext.Entry(auction)
+                            .Collection(a => a.Bids)
+                            .Query()
                             .Max(b => b.Value);
 
                         if (value < maxBidValue)
