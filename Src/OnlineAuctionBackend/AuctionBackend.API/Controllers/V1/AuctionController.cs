@@ -6,6 +6,7 @@ using AutoMapper;
 using AutoMapper.QueryableExtensions;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using X.PagedList;
 
 namespace AuctionBackend.Api.Controllers.V1
@@ -34,6 +35,25 @@ namespace AuctionBackend.Api.Controllers.V1
                 .ProjectTo<AuctionRemote>(mapper.ConfigurationProvider)
                 .ToPagedListAsync(pageInfo.PageNumber, pageInfo.PageSize);
             return Ok(new PagedResponse<IPagedList<AuctionRemote>>(response));
+        }
+
+        [HttpGet(Manifest.GetAuction)]
+        [ProducesResponseType(typeof(AuctionDetailRemote), 200)]
+        [ProducesErrorResponseType(typeof(ErrorResponse))]
+        public async Task<IActionResult> GetAuctionById([FromQuery] int Id)
+        {
+            var command = new GetAuctionByIdQuery(Id);
+            var result = await mediator.Send(command);
+            var response = await result
+                .ProjectTo<AuctionDetailRemote>(mapper.ConfigurationProvider)
+                .FirstOrDefaultAsync();
+
+            if (response is null)
+            {
+                return NotFound();
+            }
+
+            return Ok(response);
         }
 
         [HttpPost(Manifest.PostAuction)]

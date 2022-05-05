@@ -11,5 +11,8 @@
         MyAuction,
         MyBidAuction,
     }
+    public record AuctionDetailRemote(int Id, string Username, double CurrentPrice,
+        DateTime ExpireDate, DateTime CreationDate, ItemRemote Item, bool HasEnded,
+        IEnumerable<BidRemote> Bids);
     public record CreateAuctionRequest(int ItemId, DateTime ExpireDate);
 }

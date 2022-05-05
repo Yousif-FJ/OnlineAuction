@@ -16,6 +16,10 @@ namespace AuctionBackend.Api.MapProfile.V1
                 .ForCtorParam(nameof(AuctionRemote.Username), 
                 opt => opt.MapFrom(s => s.Item.Owner.Name));
 
+            CreateMap<Auction, AuctionDetailRemote>(MemberList.Destination)
+                .ForCtorParam(nameof(AuctionRemote.Username),
+                opt => opt.MapFrom(s => s.Item.Owner.Name));
+
             CreateMap<AuctionFilter, GetAllAuctionsQuery>(MemberList.Source);
             CreateMap<CreateAuctionRequest, Auction>(MemberList.Source)
                 .ForCtorParam(nameof(Auction.CreationDate),
