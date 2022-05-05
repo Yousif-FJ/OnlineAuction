@@ -46,7 +46,7 @@ namespace AuctionBackend.Application.Actions.Auctions
                             .Query()
                             .Max(b => b.Value);
 
-                        if (value < maxBidValue)
+                        if (value <= maxBidValue)
                         {
                             context.AddFailure("Bid value can not be less than other bid values");
                             return;
