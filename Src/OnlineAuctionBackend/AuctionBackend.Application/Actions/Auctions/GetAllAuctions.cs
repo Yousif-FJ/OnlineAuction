@@ -7,7 +7,14 @@ using Microsoft.EntityFrameworkCore;
 
 namespace AuctionBackend.Application.Actions.Auctions
 {
-    public record GetAllAuctionsQuery(bool IsMyAuctions = false) : IRequest<IQueryable<Auction>>;
+    public record GetAllAuctionsQuery(string? Search, bool SearchDescription = false,
+        AuctionFilterQuery AuctionFilterType = AuctionFilterQuery.Normal) : IRequest<IQueryable<Auction>>;
+    public enum AuctionFilterQuery
+    {
+        Normal,
+        MyAuction,
+        MyBidAuction,
+    }
 
     public class GetAllAuctionsHandler : RequestHandler<GetAllAuctionsQuery, IQueryable<Auction>>
     {
@@ -24,20 +31,32 @@ namespace AuctionBackend.Application.Actions.Auctions
         {
             var query = context.Auctions
                 .OrderBy(x => x.Id)
-                .Include(x => x.Item)
                 .AsNoTracking();
+           
 
-            if (request.IsMyAuctions)
+            switch (request.AuctionFilterType)
             {
-                var user = userManager.GetOrCreateAsync().GetAwaiter().GetResult();
-
-                query = query.Where(a => a.Item.OwnerId == user.Id);
+                case AuctionFilterQuery.Normal:
+                    {
+                        query = query.Where(Auction.HasEndedExpression.Inverse());
+                    }
+                    break;
+                case AuctionFilterQuery.MyAuction:
+                    {
+                        var user = userManager.GetOrCreateAsync().GetAwaiter().GetResult();
+                        query = query.Where(a => a.Item.OwnerId == user.Id);
+                    }
+                    break;
+                case AuctionFilterQuery.MyBidAuction:
+                    {
+                        var user = userManager.GetOrCreateAsync().GetAwaiter().GetResult();
+                        query = query.Where(a => 
+                                a.Bids.Any(b => b.UserId == user.Id));
+                    }
+                    break;
+                default:
+                    throw new NotImplementedException();
             }
-            else
-            {
-                query = query.Where(Auction.HasEndedExpression.Inverse());
-            }
-
             return query;
         }
     }
