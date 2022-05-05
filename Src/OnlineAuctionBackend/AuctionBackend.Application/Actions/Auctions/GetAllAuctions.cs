@@ -32,7 +32,19 @@ namespace AuctionBackend.Application.Actions.Auctions
             var query = context.Auctions
                 .OrderBy(x => x.Id)
                 .AsNoTracking();
-           
+
+            if (request.Search is not null)
+            {
+                if (request.SearchDescription)
+                {
+                    query = query.Where(a => a.Item.Name.Contains(request.Search) ||
+                                                    a.Item.Description!.Contains(request.Search));
+                }
+                else
+                {
+                    query = query.Where(a => a.Item.Name.Contains(request.Search));
+                }
+            }
 
             switch (request.AuctionFilterType)
             {
