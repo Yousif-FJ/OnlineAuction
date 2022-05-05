@@ -1,6 +1,5 @@
-﻿using AuctionBackend.Api.Controllers.ControllerFilter;
-using AuctionBackend.Api.RemoteSchema.V1;
-using AuctionBackend.Api.RemoteSchema.V1.Item;
+﻿using AuctionBackend.Api.RemoteSchema.V1;
+using AuctionBackend.Api.RemoteSchema.V1.Auction;
 using AuctionBackend.Application.Actions.Items;
 using AuctionBackend.Application.Models;
 using AutoMapper;

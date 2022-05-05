@@ -1,4 +1,4 @@
-﻿namespace AuctionBackend.Api.RemoteSchema.V1.Item
+﻿namespace AuctionBackend.Api.RemoteSchema.V1.Auction
 {
     public record ItemRemote(int Id, string Name, string? Description, double StartingPrice, string? PhotoUrl);
     public record CreateItemRequest(string Name, string? Description, double StartingPrice);

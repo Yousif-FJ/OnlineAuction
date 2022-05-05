@@ -3,7 +3,7 @@ using FluentValidation;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
 
-namespace AuctionBackend.Api.Controllers.ControllerFilter
+namespace AuctionBackend.Api.Controllers
 {
     public class ValidationExceptionFilter : IExceptionFilter
     {
