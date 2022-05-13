@@ -1,8 +1,5 @@
-﻿using AuctionBackend.Application.Database;
-using AuctionBackend.Application.Models;
-using FluentValidation;
+﻿using FluentValidation;
 using Microsoft.AspNetCore.Http;
-using Microsoft.EntityFrameworkCore;
 using System.Security.Claims;
 
 namespace AuctionBackend.Application.Helper

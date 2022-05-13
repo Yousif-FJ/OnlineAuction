@@ -1,14 +1,6 @@
-﻿using AuctionBackend.Application.Database;
-using AuctionBackend.Application.Helper;
-using AuctionBackend.Application.Models;
-using FluentValidation;
+﻿using AuctionBackend.Application.Helper;
 using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace AuctionBackend.Application.Services
 {

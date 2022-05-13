@@ -10,10 +10,10 @@ namespace AuctionBackend.Api.MapProfile.V1
         public AuctionMapProfile()
         {
             CreateMap<Auction, AuctionRemote>(MemberList.Destination)
-                .ForCtorParam(nameof(AuctionRemote.HighestBids), 
+                .ForCtorParam(nameof(AuctionRemote.HighestBids),
                 opt => opt.MapFrom(s => s.Bids.OrderBy(b => b.Value)
                                     .LastOrDefault()))
-                .ForCtorParam(nameof(AuctionRemote.Username), 
+                .ForCtorParam(nameof(AuctionRemote.Username),
                 opt => opt.MapFrom(s => s.Item.Owner.Name));
 
             CreateMap<Auction, AuctionDetailRemote>(MemberList.Destination)

@@ -5,7 +5,7 @@ using AutoMapper;
 
 namespace AuctionBackend.Api.MapProfile.V1
 {
-    public class BidMapProfile: Profile
+    public class BidMapProfile : Profile
     {
         public BidMapProfile()
         {

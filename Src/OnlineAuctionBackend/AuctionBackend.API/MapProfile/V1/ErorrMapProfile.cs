@@ -1,6 +1,6 @@
-﻿using AutoMapper;
-using AuctionBackend.Api.RemoteSchema.V1;
+﻿using AuctionBackend.Api.RemoteSchema.V1;
 using AuctionBackend.Identity.Actions.HelperObj;
+using AutoMapper;
 
 namespace AuctionBackend.Api.MapProfile.V1
 {

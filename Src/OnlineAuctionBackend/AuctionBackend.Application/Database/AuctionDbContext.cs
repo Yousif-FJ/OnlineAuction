@@ -1,5 +1,4 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using AuctionBackend.Application.Models;
 
 namespace AuctionBackend.Application.Database
 {

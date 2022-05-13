@@ -1,12 +1,12 @@
-using Microsoft.AspNetCore.Authorization;
 using AuctionBackend.Api.MapProfile.V1;
+using AuctionBackend.Application.Actions.Items;
+using AuctionBackend.Application.Database;
+using AuctionBackend.Application.Services;
 using AuctionBackend.Identity.StartupConfig;
+using CloudinaryDotNet;
 using MediatR;
 using MediatR.Extensions.FluentValidation.AspNetCore;
-using AuctionBackend.Application.Actions.Items;
-using AuctionBackend.Application.Services;
-using CloudinaryDotNet;
-using AuctionBackend.Application.Database;
+using Microsoft.AspNetCore.Authorization;
 
 var MyAllowSpecificOrigins = "_myAllowSpecificOrigins";
 

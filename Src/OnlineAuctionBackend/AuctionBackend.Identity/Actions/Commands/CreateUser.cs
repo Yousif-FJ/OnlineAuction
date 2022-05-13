@@ -1,8 +1,7 @@
-﻿using MediatR;
-using Microsoft.AspNetCore.Identity;
+﻿using AuctionBackend.Identity.Actions.HelperObj;
 using AuctionBackend.Identity.Services;
-using AuctionBackend.Identity.Database;
-using AuctionBackend.Identity.Actions.HelperObj;
+using MediatR;
+using Microsoft.AspNetCore.Identity;
 
 namespace AuctionBackend.Identity.Actions.Commands
 {

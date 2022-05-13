@@ -49,7 +49,7 @@ namespace AuctionBackend.Api.Controllers.V1
         [Produces("application/json")]
         [ProducesResponseType(typeof(string), 200)]
         [ProducesErrorResponseType(typeof(ErrorResponse))]
-        public async Task<IActionResult> PostItem([FromForm]AddItemPhotoRequest request)
+        public async Task<IActionResult> PostItem([FromForm] AddItemPhotoRequest request)
         {
             var command = new AddItemPictureCommand(request.Id, request.Photo);
             var result = await mediator.Send(command);

@@ -1,6 +1,4 @@
-﻿using AuctionBackend.Application.Database;
-using AuctionBackend.Application.Helper;
-using AuctionBackend.Application.Models;
+﻿using AuctionBackend.Application.Helper;
 using AuctionBackend.Application.Services;
 using FluentValidation;
 using MediatR;

@@ -1,7 +1,7 @@
-﻿using AutoMapper;
-using AuctionBackend.Api.RemoteSchema.V1.Authentication;
+﻿using AuctionBackend.Api.RemoteSchema.V1.Authentication;
 using AuctionBackend.Identity.Actions.Commands;
 using AuctionBackend.Identity.Database;
+using AutoMapper;
 
 namespace AuctionBackend.Api.MapProfile.V1
 {

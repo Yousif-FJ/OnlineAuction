@@ -1,5 +1,4 @@
-﻿using AuctionBackend.Application.Database;
-using AuctionBackend.Application.Helper;
+﻿using AuctionBackend.Application.Helper;
 using AuctionBackend.Application.Services;
 using FluentValidation;
 using MediatR;
@@ -14,9 +13,10 @@ namespace AuctionBackend.Application.Actions.Items
         public AddItemPictureValidator(AuctionDbContext dbContext, IAuctionUserManager userManager)
         {
             RuleFor(request => request.ItemId)
-                .Custom((userId,context) => {
+                .Custom((userId, context) =>
+                {
                     var user = userManager.GetOrCreateAsync().GetAwaiter().GetResult();
-                    Debug.Assert(user is not null, 
+                    Debug.Assert(user is not null,
                         "User can not be null with correct authorization");
 
                     dbContext.ValidateItemExistAsync(context,

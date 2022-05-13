@@ -1,12 +1,12 @@
-﻿using AutoMapper;
+﻿using AuctionBackend.Api.RemoteSchema.V1;
+using AuctionBackend.Api.RemoteSchema.V1.Authentication;
+using AuctionBackend.Application.Helper;
+using AuctionBackend.Identity.Actions.Commands;
+using AuctionBackend.Identity.Actions.Queries;
+using AutoMapper;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using AuctionBackend.Api.RemoteSchema.V1;
-using AuctionBackend.Api.RemoteSchema.V1.Authentication;
-using AuctionBackend.Identity.Actions.Commands;
-using AuctionBackend.Identity.Actions.Queries;
-using AuctionBackend.Application.Helper;
 using System.Diagnostics;
 
 namespace AuctionBackend.Api.Controllers.V1

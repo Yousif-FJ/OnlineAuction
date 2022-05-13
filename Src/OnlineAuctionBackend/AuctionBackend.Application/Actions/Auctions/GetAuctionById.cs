@@ -1,12 +1,10 @@
-﻿using AuctionBackend.Application.Database;
-using AuctionBackend.Application.Models;
-using MediatR;
+﻿using MediatR;
 using Microsoft.EntityFrameworkCore;
 
 namespace AuctionBackend.Application.Actions.Auctions
 {
-    public record GetAuctionByIdQuery(int Id): IRequest<IQueryable<Auction>>;
-    public class GetAuctionByIdHandler : RequestHandler<GetAuctionByIdQuery,IQueryable<Auction>>
+    public record GetAuctionByIdQuery(int Id) : IRequest<IQueryable<Auction>>;
+    public class GetAuctionByIdHandler : RequestHandler<GetAuctionByIdQuery, IQueryable<Auction>>
     {
         private readonly AuctionDbContext auctionDb;
 

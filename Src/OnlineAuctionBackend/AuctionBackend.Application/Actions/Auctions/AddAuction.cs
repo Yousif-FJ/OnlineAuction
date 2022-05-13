@@ -1,10 +1,8 @@
-﻿using AuctionBackend.Application.Database;
-using AuctionBackend.Application.Models;
+﻿using AuctionBackend.Application.Helper;
 using AuctionBackend.Application.Services;
-using Microsoft.EntityFrameworkCore;
 using FluentValidation;
 using MediatR;
-using AuctionBackend.Application.Helper;
+using Microsoft.EntityFrameworkCore;
 
 namespace AuctionBackend.Application.Actions.Auctions
 {

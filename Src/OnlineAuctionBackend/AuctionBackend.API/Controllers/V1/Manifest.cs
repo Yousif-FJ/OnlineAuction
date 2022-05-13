@@ -18,7 +18,7 @@
         public const string GetAllAuctions = "/v1/auctions";
         public const string DeleteAuction = "/v1/auction";
         public const string EndAuction = "/v1/endAuction";
-        
+
         public const string PostBid = "/v1/bid";
     }
 }

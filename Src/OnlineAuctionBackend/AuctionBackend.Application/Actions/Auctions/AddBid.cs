@@ -1,14 +1,11 @@
-﻿using AuctionBackend.Application.Database;
-using AuctionBackend.Application.Models;
-using Microsoft.EntityFrameworkCore;
+﻿using AuctionBackend.Application.Services;
 using FluentValidation;
 using MediatR;
-using AuctionBackend.Application.Services;
 using System.Diagnostics;
 
 namespace AuctionBackend.Application.Actions.Auctions
 {
-    public record AddBidCommand(double Value, int AuctionId): IRequest<Bid>;
+    public record AddBidCommand(double Value, int AuctionId) : IRequest<Bid>;
 
     public class AddBidValidator : AbstractValidator<AddBidCommand>
     {
@@ -25,9 +22,9 @@ namespace AuctionBackend.Application.Actions.Auctions
                         return;
                     }
 
-                     dbContext.Entry(auction)
-                        .Reference(a => a.Item)
-                        .Load();
+                    dbContext.Entry(auction)
+                       .Reference(a => a.Item)
+                       .Load();
 
                     if (value < auction.Item.StartingPrice)
                     {
@@ -89,7 +86,7 @@ namespace AuctionBackend.Application.Actions.Auctions
         {
             var user = await userManager.GetOrCreateAsync();
 
-            Debug.Assert(user is not null,"User can not be null with correct authorization");
+            Debug.Assert(user is not null, "User can not be null with correct authorization");
 
             var bid = new Bid(request.Value, DateTime.UtcNow, request.AuctionId,
                 user.Id);

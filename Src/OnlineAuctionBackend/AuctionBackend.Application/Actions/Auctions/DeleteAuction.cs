@@ -1,6 +1,4 @@
-﻿using AuctionBackend.Application.Database;
-using AuctionBackend.Application.Models;
-using AuctionBackend.Application.Services;
+﻿using AuctionBackend.Application.Services;
 using FluentValidation;
 using MediatR;
 using System.Diagnostics;
@@ -10,7 +8,7 @@ namespace AuctionBackend.Application.Actions.Auctions
     public record DeleteAuctionCommand(int AuctionId) : IRequest<Auction>;
     public class DeleteAuctionValidator : AbstractValidator<DeleteAuctionCommand>
     {
-        public DeleteAuctionValidator(AuctionDbContext auctionDb, IAuctionUserManager userManager)  
+        public DeleteAuctionValidator(AuctionDbContext auctionDb, IAuctionUserManager userManager)
         {
             RuleFor(request => request.AuctionId).NotEmpty();
             RuleFor(request => request.AuctionId)

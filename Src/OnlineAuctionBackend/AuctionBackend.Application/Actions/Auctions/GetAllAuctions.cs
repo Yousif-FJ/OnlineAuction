@@ -1,6 +1,4 @@
-﻿using AuctionBackend.Application.Database;
-using AuctionBackend.Application.Helper;
-using AuctionBackend.Application.Models;
+﻿using AuctionBackend.Application.Helper;
 using AuctionBackend.Application.Services;
 using FluentValidation;
 using MediatR;
@@ -71,7 +69,7 @@ namespace AuctionBackend.Application.Actions.Auctions
                         {
                             throw new ValidationException("User not logged in");
                         }
-                        query = query.Where(a => 
+                        query = query.Where(a =>
                                 a.Bids.Any(b => b.UserId == user.Id));
                     }
                     break;

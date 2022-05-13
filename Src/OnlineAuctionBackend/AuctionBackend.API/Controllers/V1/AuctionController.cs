@@ -28,7 +28,7 @@ namespace AuctionBackend.Api.Controllers.V1
         [HttpGet(Manifest.GetAllAuctions)]
         [ProducesResponseType(typeof(PagedResponse<IPagedList<AuctionRemote>>), 200)]
         [ProducesErrorResponseType(typeof(ErrorResponse))]
-        public async Task<IActionResult> GetAllAuctions([FromQuery]PageInfoRequest pageInfo,
+        public async Task<IActionResult> GetAllAuctions([FromQuery] PageInfoRequest pageInfo,
             [FromQuery] AuctionFilter auctionFilter)
         {
             var command = mapper.Map<GetAllAuctionsQuery>(auctionFilter);
