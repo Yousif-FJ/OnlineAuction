@@ -4,7 +4,7 @@ using AuctionBackend.Application.Services;
 using Microsoft.EntityFrameworkCore;
 using FluentValidation;
 using MediatR;
-using AuctionBackend.Application.Actions.Helper;
+using AuctionBackend.Application.Helper;
 
 namespace AuctionBackend.Application.Actions.Auctions
 {

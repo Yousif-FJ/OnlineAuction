@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using AuctionBackend.Api.RemoteSchema.V1;
+using AuctionBackend.Identity.Actions.HelperObj;
 
 namespace AuctionBackend.Api.MapProfile.V1
 {
@@ -7,7 +8,7 @@ namespace AuctionBackend.Api.MapProfile.V1
     {
         public ErorrMapProfile()
         {
-            CreateMap<Identity.Data.ErrorMessage, ErrorResponse>(MemberList.Destination);
+            CreateMap<ErrorMessage, ErrorResponse>(MemberList.Destination);
         }
     }
 }

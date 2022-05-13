@@ -1,5 +1,4 @@
-﻿using AuctionBackend.Application.Actions.Helper;
-using AuctionBackend.Application.Database;
+﻿using AuctionBackend.Application.Database;
 using AuctionBackend.Application.Models;
 using AuctionBackend.Application.Services;
 using MediatR;

@@ -1,2 +1,2 @@
-﻿global using AuctionBackend.Identity.Data;
+﻿global using AuctionBackend.Identity.Database;
 global using OneOf;

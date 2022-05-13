@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
-namespace AuctionBackend.Identity.Data
+namespace AuctionBackend.Identity.Database
 {
     public class IdentityDbContext : IdentityUserContext<AppUser>
     {

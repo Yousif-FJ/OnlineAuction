@@ -1,4 +1,4 @@
-﻿namespace AuctionBackend.Identity.Data
+﻿namespace AuctionBackend.Identity.Actions.HelperObj
 {
     public class ErrorMessage
     {

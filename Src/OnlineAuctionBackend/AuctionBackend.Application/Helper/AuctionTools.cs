@@ -5,7 +5,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
 using System.Security.Claims;
 
-namespace AuctionBackend.Application.Actions.Helper
+namespace AuctionBackend.Application.Helper
 {
     public static class AuctionTools
     {

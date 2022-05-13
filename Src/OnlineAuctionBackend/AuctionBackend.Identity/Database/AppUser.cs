@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Identity;
 
-namespace AuctionBackend.Identity.Data
+namespace AuctionBackend.Identity.Database
 {
     public class AppUser : IdentityUser
     {

@@ -1,4 +1,5 @@
-﻿using MediatR;
+﻿using AuctionBackend.Identity.Database;
+using MediatR;
 using Microsoft.AspNetCore.Identity;
 
 namespace AuctionBackend.Identity.Actions.Queries

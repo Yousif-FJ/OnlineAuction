@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.DependencyInjection;
 using AuctionBackend.Identity.Actions.Commands;
 using AuctionBackend.Identity.Services;
+using AuctionBackend.Identity.Database;
 
 namespace AuctionBackend.Identity.StartupConfig
 {

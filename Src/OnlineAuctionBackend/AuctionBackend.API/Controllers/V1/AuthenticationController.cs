@@ -6,7 +6,8 @@ using AuctionBackend.Api.RemoteSchema.V1;
 using AuctionBackend.Api.RemoteSchema.V1.Authentication;
 using AuctionBackend.Identity.Actions.Commands;
 using AuctionBackend.Identity.Actions.Queries;
-using AuctionBackend.Application.Actions.Helper;
+using AuctionBackend.Application.Helper;
+using System.Diagnostics;
 
 namespace AuctionBackend.Api.Controllers.V1
 {
@@ -58,6 +59,7 @@ namespace AuctionBackend.Api.Controllers.V1
         public async Task<IActionResult> GetMyUser()
         {
             var userId = HttpContext.GetUserId();
+            Debug.Assert(userId is not null, "User can not be null with correct authorization");
             var result = await _mediator.Send(new GetUserQuery(userId));
 
             if (result is null)

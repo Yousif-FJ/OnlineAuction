@@ -1,5 +1,5 @@
-﻿using AuctionBackend.Application.Actions.Helper;
-using AuctionBackend.Application.Database;
+﻿using AuctionBackend.Application.Database;
+using AuctionBackend.Application.Helper;
 using AuctionBackend.Application.Models;
 using FluentValidation;
 using Microsoft.AspNetCore.Http;
