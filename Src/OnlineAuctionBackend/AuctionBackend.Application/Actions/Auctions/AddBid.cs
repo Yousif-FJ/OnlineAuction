@@ -9,7 +9,7 @@ namespace AuctionBackend.Application.Actions.Auctions
 
     public class AddBidValidator : AbstractValidator<AddBidCommand>
     {
-        public AddBidValidator(AuctionDbContext dbContext)
+        public AddBidValidator(AuctionDbContext dbContext, IAuctionUserManager userManager)
         {
             RuleFor(request => request.Value).NotEmpty();
             RuleFor(request => request.Value)
@@ -56,10 +56,26 @@ namespace AuctionBackend.Application.Actions.Auctions
             RuleFor(request => request.AuctionId)
                 .Custom((auctionId, context) =>
                 {
+                    var user = userManager.GetOrCreateAsync().GetAwaiter().GetResult();
+                    Debug.Assert(user is not null,
+                        "User can't be null with correct authorization");
+
                     var auction = dbContext.Auctions.Find(auctionId);
                     if (auction == null)
                     {
                         context.AddFailure("Auction doesn't exist");
+                        return;
+                    }
+
+                    var auctionUserId = dbContext.Entry(auction)
+                                        .Reference(auction => auction.Item)
+                                        .Query()
+                                        .Select(item => item.OwnerId)
+                                        .First();
+
+                    if (user.Id == auctionUserId)
+                    {
+                        context.AddFailure("Can't bid on your own auction");
                         return;
                     }
 
