@@ -11,10 +11,15 @@ namespace AuctionBackend.Api.Controllers
         {
             if (context.Exception is ValidationException exception)
             {
-                var firstError = exception.Errors.First();
+                var errorMessage = exception.Errors.FirstOrDefault()?.ErrorMessage;
+
+                if (errorMessage is null)
+                {
+                    errorMessage = exception.Message;
+                }
 
                 context.Result = new BadRequestObjectResult(
-                    new ErrorResponse(firstError.ErrorMessage));
+                    new ErrorResponse(errorMessage));
                 context.ExceptionHandled = true;
             }
         }

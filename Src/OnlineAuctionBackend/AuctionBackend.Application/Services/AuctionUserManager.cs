@@ -22,9 +22,15 @@ namespace AuctionBackend.Application.Services
             this.auctionDb = auctionDb;
             this.httpContextAccessor = httpContextAccessor;
         }
-        public async Task<User> GetOrCreateAsync()
+        public async Task<User?> GetOrCreateAsync()
         {
             var IdentityUserId = httpContextAccessor.HttpContext.GetUserId();
+
+            if (IdentityUserId is null)
+            {
+                return null;
+            }
+
             var user = await auctionDb.Users.FirstOrDefaultAsync(
                 u => u.IdentityId == IdentityUserId);
 

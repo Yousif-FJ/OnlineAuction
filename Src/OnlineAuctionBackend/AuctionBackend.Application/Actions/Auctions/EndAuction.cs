@@ -4,6 +4,7 @@ using AuctionBackend.Application.Services;
 using FluentValidation;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
+using System.Diagnostics;
 
 namespace AuctionBackend.Application.Actions.Auctions
 {
@@ -30,6 +31,9 @@ namespace AuctionBackend.Application.Actions.Auctions
                 }
 
                 var user = userManager.GetOrCreateAsync().GetAwaiter().GetResult();
+
+                Debug.Assert(user is not null,
+                    "User can not be null with correct authorization");
 
                 auctionDb.Entry(auction!).Collection(a => a.Bids)
                     .Load();

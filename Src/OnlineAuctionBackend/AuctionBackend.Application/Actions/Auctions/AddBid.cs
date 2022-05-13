@@ -4,6 +4,7 @@ using Microsoft.EntityFrameworkCore;
 using FluentValidation;
 using MediatR;
 using AuctionBackend.Application.Services;
+using System.Diagnostics;
 
 namespace AuctionBackend.Application.Actions.Auctions
 {
@@ -87,6 +88,9 @@ namespace AuctionBackend.Application.Actions.Auctions
         public async Task<Bid> Handle(AddBidCommand request, CancellationToken ct)
         {
             var user = await userManager.GetOrCreateAsync();
+
+            Debug.Assert(user is not null,"User can not be null with correct authorization");
+
             var bid = new Bid(request.Value, DateTime.UtcNow, request.AuctionId,
                 user.Id);
 

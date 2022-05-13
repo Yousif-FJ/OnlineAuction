@@ -5,6 +5,7 @@ using AuctionBackend.Application.Models;
 using AutoMapper;
 using AutoMapper.QueryableExtensions;
 using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using X.PagedList;
@@ -23,6 +24,7 @@ namespace AuctionBackend.Api.Controllers.V1
             this.mapper = mapper;
             this.mediator = mediator;
         }
+        [AllowAnonymous]
         [HttpGet(Manifest.GetAllAuctions)]
         [ProducesResponseType(typeof(PagedResponse<IPagedList<AuctionRemote>>), 200)]
         [ProducesErrorResponseType(typeof(ErrorResponse))]

@@ -4,6 +4,7 @@ using AuctionBackend.Application.Services;
 using FluentValidation;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
+using System.Diagnostics;
 
 namespace AuctionBackend.Application.Actions.Items
 {
@@ -30,6 +31,9 @@ namespace AuctionBackend.Application.Actions.Items
         public async Task<Item> Handle(AddItemCommand request, CancellationToken ct)
         {
             var user = await userManager.GetOrCreateAsync();
+            Debug.Assert(user is not null,
+                "User can not be null with correct authorization");
+
             request.Item.Owner = user;
 
             await dbContext.Items.AddAsync(request.Item, ct);

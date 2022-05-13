@@ -2,6 +2,7 @@
 using AuctionBackend.Application.Helper;
 using AuctionBackend.Application.Models;
 using AuctionBackend.Application.Services;
+using FluentValidation;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 
@@ -56,12 +57,20 @@ namespace AuctionBackend.Application.Actions.Auctions
                 case AuctionFilterQuery.MyAuction:
                     {
                         var user = userManager.GetOrCreateAsync().GetAwaiter().GetResult();
+                        if (user is null)
+                        {
+                            throw new ValidationException("User not logged in");
+                        }
                         query = query.Where(a => a.Item.OwnerId == user.Id);
                     }
                     break;
                 case AuctionFilterQuery.MyBidAuction:
                     {
                         var user = userManager.GetOrCreateAsync().GetAwaiter().GetResult();
+                        if (user is null)
+                        {
+                            throw new ValidationException("User not logged in");
+                        }
                         query = query.Where(a => 
                                 a.Bids.Any(b => b.UserId == user.Id));
                     }

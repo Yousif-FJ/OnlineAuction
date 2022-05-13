@@ -3,6 +3,7 @@ using AuctionBackend.Application.Database;
 using AuctionBackend.Application.Models;
 using AuctionBackend.Application.Services;
 using MediatR;
+using System.Diagnostics;
 
 namespace AuctionBackend.Application.Actions.Items
 {
@@ -22,7 +23,8 @@ namespace AuctionBackend.Application.Actions.Items
         public async Task<IQueryable<Item>> Handle(GetMyItemsQuery request, CancellationToken ct)
         {
             var user = await userManager.GetOrCreateAsync();
-                
+            Debug.Assert(user is not null,"User can not be null with correct authorization");
+
             return context.Items
                 .OrderBy(x => x.Id)
                 .Where(i => i.OwnerId == user.Id);

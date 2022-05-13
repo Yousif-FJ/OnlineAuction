@@ -4,6 +4,7 @@ using AuctionBackend.Application.Services;
 using FluentValidation;
 using MediatR;
 using Microsoft.AspNetCore.Http;
+using System.Diagnostics;
 
 namespace AuctionBackend.Application.Actions.Items
 {
@@ -15,6 +16,9 @@ namespace AuctionBackend.Application.Actions.Items
             RuleFor(request => request.ItemId)
                 .Custom((userId,context) => {
                     var user = userManager.GetOrCreateAsync().GetAwaiter().GetResult();
+                    Debug.Assert(user is not null, 
+                        "User can not be null with correct authorization");
+
                     dbContext.ValidateItemExistAsync(context,
                         context.InstanceToValidate.ItemId).GetAwaiter().GetResult();
                     dbContext.ValidateItemOwnerAsync(context,

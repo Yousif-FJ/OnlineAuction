@@ -3,6 +3,7 @@ using AuctionBackend.Application.Models;
 using AuctionBackend.Application.Services;
 using FluentValidation;
 using MediatR;
+using System.Diagnostics;
 
 namespace AuctionBackend.Application.Actions.Auctions
 {
@@ -35,6 +36,10 @@ namespace AuctionBackend.Application.Actions.Auctions
                         .FirstOrDefault();
 
                     var user = userManager.GetOrCreateAsync().GetAwaiter().GetResult();
+
+                    Debug.Assert(user is not null,
+                        "User can not be null with correct authorization");
+
                     if (itemOwnerId != user.Id)
                     {
                         context.AddFailure("User is not auction owner");
