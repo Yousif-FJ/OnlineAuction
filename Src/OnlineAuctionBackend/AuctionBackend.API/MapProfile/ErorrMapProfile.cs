@@ -1,8 +1,8 @@
-﻿using AuctionBackend.Api.RemoteSchema.V1;
+﻿using AuctionBackend.Api.RemoteSchema;
 using AuctionBackend.Identity.Actions.HelperObj;
 using AutoMapper;
 
-namespace AuctionBackend.Api.MapProfile.V1
+namespace AuctionBackend.Api.MapProfile
 {
     public class ErorrMapProfile : Profile
     {

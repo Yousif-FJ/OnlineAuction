@@ -1,6 +1,6 @@
 ﻿using X.PagedList;
 
-namespace AuctionBackend.Api.RemoteSchema.V1
+namespace AuctionBackend.Api.RemoteSchema
 {
     public record PagedResponse<TPagedList>(TPagedList Data) where TPagedList : IPagedList
     {

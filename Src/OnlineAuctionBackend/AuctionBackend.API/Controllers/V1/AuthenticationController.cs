@@ -1,4 +1,4 @@
-﻿using AuctionBackend.Api.RemoteSchema.V1;
+﻿using AuctionBackend.Api.RemoteSchema;
 using AuctionBackend.Api.RemoteSchema.V1.Authentication;
 using AuctionBackend.Application.Helper;
 using AuctionBackend.Identity.Actions.Commands;

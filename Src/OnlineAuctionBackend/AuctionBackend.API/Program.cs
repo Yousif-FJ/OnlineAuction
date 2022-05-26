@@ -62,6 +62,7 @@ builder.Services.AddSwaggerGen(options =>
         Title = "Online Auction"
     });
 
+    options.CustomSchemaIds(type => type.ToString());
     options.CustomConfigSwagger();
 });
 

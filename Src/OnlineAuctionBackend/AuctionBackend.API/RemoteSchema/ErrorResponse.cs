@@ -1,4 +1,4 @@
-﻿namespace AuctionBackend.Api.RemoteSchema.V1
+﻿namespace AuctionBackend.Api.RemoteSchema
 {
     public record ErrorResponse(string Message);
 }

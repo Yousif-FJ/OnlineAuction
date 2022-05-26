@@ -1,4 +1,4 @@
-﻿using AuctionBackend.Api.RemoteSchema.V1;
+﻿using AuctionBackend.Api.RemoteSchema;
 using AuctionBackend.Api.RemoteSchema.V1.Auction;
 using AuctionBackend.Application.Actions.Auctions;
 using AuctionBackend.Application.Models;
