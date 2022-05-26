@@ -13,7 +13,7 @@ namespace AuctionBackend.Application.Actions.Auctions
         public AddAuctionValidator(IAuctionUserManager userManager, AuctionDbContext dbContext)
         {
             RuleFor(request => request.Auction.ExpireDate)
-                .GreaterThan(DateTime.Now);
+                .GreaterThan(DateTime.UtcNow);
 
             RuleFor(request => request.Auction.ItemId)
                 .Custom((ItemId, context) =>
