@@ -107,6 +107,9 @@ namespace AuctionBackend.Application.Actions.Auctions
             var bid = new Bid(request.Value, DateTime.UtcNow, request.AuctionId,
                 user.Id);
 
+            var auction = dbContext.Auctions.Find(request.AuctionId);
+            auction!.CurrentPrice = bid.Value; 
+
             await dbContext.Bids.AddAsync(bid, ct);
             await dbContext.SaveChangesAsync(ct);
 

@@ -2,9 +2,7 @@
 using AuctionBackend.Application.Actions.Auctions;
 using AuctionBackend.Application.Models;
 using AutoMapper;
-using AutoMapper.QueryableExtensions;
 using MediatR;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace AuctionBackend.Api.Controllers.V2
