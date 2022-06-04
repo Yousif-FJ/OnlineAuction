@@ -12,6 +12,14 @@ namespace AuctionBackend.Application.Actions.Items
     {
         public AddItemValidator()
         {
+            RuleFor(request => request.Item.Name).Custom((name, context) => 
+            {
+                if (string.IsNullOrWhiteSpace(name))
+                {
+                    context.AddFailure("Name can't be empty");
+                    return; 
+                }
+            });
             RuleFor(request => request.Item.StartingPrice).GreaterThan(0);
         }
     }
