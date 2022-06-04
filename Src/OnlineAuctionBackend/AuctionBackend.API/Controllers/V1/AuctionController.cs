@@ -39,6 +39,7 @@ namespace AuctionBackend.Api.Controllers.V1
             return Ok(new PagedResponse<IPagedList<AuctionRemote>>(response));
         }
 
+        [AllowAnonymous]
         [HttpGet(Manifest.GetAuction)]
         [ProducesResponseType(typeof(AuctionDetailRemote), 200)]
         [ProducesErrorResponseType(typeof(ErrorResponse))]
