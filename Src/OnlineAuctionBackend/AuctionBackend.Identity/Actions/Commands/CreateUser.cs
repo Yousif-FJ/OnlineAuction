@@ -2,6 +2,7 @@
 using AuctionBackend.Identity.Services;
 using MediatR;
 using Microsoft.AspNetCore.Identity;
+using System.Text.RegularExpressions;
 
 namespace AuctionBackend.Identity.Actions.Commands
 {
@@ -23,9 +24,16 @@ namespace AuctionBackend.Identity.Actions.Commands
             _userManager = userManager;
             _tokenGenerator = tokenGenerator;
         }
+
         public async Task<OneOf<CreateUserResult, ErrorMessage>> Handle(CreateUserCommand request,
             CancellationToken cancellationToken)
         {
+            if (request.Phonenumber is not null &&
+                IsPhoneNbr(request.Phonenumber) == false)
+            {
+                return new ErrorMessage("Phone number is not valid");
+            }
+
             var user = new AppUser(request.Username)
             {
                 Email = request.Email,
@@ -45,6 +53,11 @@ namespace AuctionBackend.Identity.Actions.Commands
                 , user.Id);
 
             return new CreateUserResult(AccessToken: accessToken);
+        }
+        private const string PhoneNumberRegex = @"^[\+]?[(]?[0-9]{3}[)]?[-\s\.]?[0-9]{3}[-\s\.]?[0-9]{4,6}$";
+        public static bool IsPhoneNbr(string number)
+        {
+            return Regex.IsMatch(number, PhoneNumberRegex);
         }
     }
 }
