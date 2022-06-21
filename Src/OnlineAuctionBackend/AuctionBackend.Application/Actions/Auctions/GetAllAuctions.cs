@@ -36,12 +36,14 @@ namespace AuctionBackend.Application.Actions.Auctions
             {
                 if (request.SearchDescription)
                 {
-                    query = query.Where(a => a.Item.Name.Contains(request.Search) ||
-                                                    a.Item.Description!.Contains(request.Search));
+                    query = query.Where(a => a.Item.Name.ToLower()
+                        .Contains(request.Search.ToLower()) ||
+                                a.Item.Description!.ToLower().Contains(request.Search.ToLower()));
                 }
                 else
                 {
-                    query = query.Where(a => a.Item.Name.Contains(request.Search));
+                    query = query.Where(a => a.Item.Name.ToLower()
+                        .Contains(request.Search.ToLower()));
                 }
             }
 
